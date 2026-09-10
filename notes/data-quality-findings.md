@@ -35,3 +35,6 @@ Facility Type is uncontrolled free text with inconsistent casing and overlapping
 -Risk 1 accounts for 79% of inspections, so the city's risk rating is heavily concentrated in one category
 -Zero unparseable dates and zero duplicate Inspection IDs, both verified rather than assumed
 -The city cleanup worked via substring matching rather than hand-mapping 90 variants-
+
+## 8. Findings From SQL Query (1)
+Within a facility type, the city's risk tier does predict failure rate in the expected direction. Restaurants fail at 23.0%, 21.4%, and 19.8% across Risk 1, 2, and 3. But the effect is small compared to variation between facility types: the lowest-risk liquor stores fail at 31.7%, above the highest-risk restaurants. Risk tier appears to encode the consequence of a failure rather than its likelihood.
