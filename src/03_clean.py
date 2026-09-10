@@ -40,6 +40,23 @@ def clean_inspections(df: pd.DataFrame) -> pd.DataFrame:
         df = df[keep]
         return df
 
+def explode_violations(df: pd.DataFrame) -> pd.DataFrame:
+    v = df[["inspection_id", "violations"]].dropna(subset=["violations"])
+    v = v.assign(violation=v["violations"].str.split(r"\s*\|\s*", regex=True))
+    v = v.explode("violation")
+    v["violation_code"] = v["violation"].str.extract(r"^\s*(\d+)\.").astype("Int64")
+    v["violation_desc"] = v["violation"].str.extract(r"^\s*\d+\.\s*(.*?)\s*-\s*Comments:")
+    v["comments"] = v["violation"].str.extract(r"-\s*Comments:\s*(.*)$")
+    no_comment = v["violation_desc"].isna()
+    v.loc[no_comment, "violation_desc"] = v.loc[no_comment, "violation"].str.extract(r"^\s*\d+\.\s*(.*)$")[0]
+    print(f"Missing desc: {v['violation_desc'].isna().sum():,}")
+    print(f"Missing comments: {v['comments'].isna().sum():,}")
+    print(v[["violation_code", "violation_desc"]].dropna().sample(5).to_string())
+    print(f"Failed code extraction: {v['violation_code'].isna().sum():,}")
+    print(v["violation_code"].value_counts().head(10))
+    print(f"Violation rows after split: {len(v):,}")
+    v = v[["inspection_id", "violation_code", "violation_desc", "comments"]]
+    return v
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
@@ -47,6 +64,10 @@ def main():
     print(f"Raw rows: {len(raw):,}")
     inspections = clean_inspections(raw)
     print(f"Clean rows: {len(inspections):,}")
+    violations = explode_violations(inspections)
+    print(f"Violation rows: {len(violations):,}")
+    violations.to_parquet(OUT / "violations.parquet", index=False)
+    inspections = inspections.drop(columns=["violations"])
     inspections.to_parquet(OUT / "inspections.parquet", index=False)
 
 
