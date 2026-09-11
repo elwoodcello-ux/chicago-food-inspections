@@ -1,0 +1,20 @@
+facility_type,risk_level,total,failures,fail_pct
+Liquor,3,378,120,31.7
+Grocery Store,2,2566,714,27.8
+Long Term Care,1,949,252,26.6
+School,1,6664,1729,25.9
+Grocery Store,3,3157,811,25.7
+School,2,332,85,25.6
+Bakery,2,573,143,25.0
+Bakery,1,752,186,24.7
+Mobile Food Preparer,2,588,139,23.6
+Restaurant,1,55923,12857,23.0
+Grocery Store,1,4487,1023,22.8
+Daycare (2 - 6 Years),1,648,146,22.5
+Daycare Above and Under 2 Years,1,1567,337,21.5
+Restaurant,2,9563,2043,21.4
+Restaurant,3,896,177,19.8
+Children's Services Facility,1,3660,647,17.7
+Catering,1,509,89,17.5
+Hospital,1,387,65,16.8
+Golden Diner,1,293,43,14.7

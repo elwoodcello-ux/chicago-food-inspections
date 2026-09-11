@@ -27,5 +27,4 @@ JOIN inspections i ON v.inspection_id = i.inspection_id
 WHERE i.results IN ('Pass', 'Fail', 'Pass w/ Conditions')
 GROUP BY v.violation_code, v.violation_desc
 HAVING COUNT(*) >= 500
-ORDER BY pct_on_fail DESC
-LIMIT 15;
+ORDER BY pct_on_fail DESC;

@@ -1,0 +1,4 @@
+risk_level,failures_with_followup,passed_next,pct_passed_next,avg_days_to_next
+1,17359,15156,87.3,14.3
+2,3151,2759,87.6,13.9
+3,1204,1055,87.6,16.5
